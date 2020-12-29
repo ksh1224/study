@@ -27,5 +27,6 @@ $ npm run start
 1. 플레이스토어 or 앱스토어 에서 expo 다운
 2. 앱 실행 후 profile 탭에서 가입 후 로그인
 3. projects 탭에서 scan qr code 클릭
-4. http://localhost:19002/ 접속 후 CONNECTION를 Tunnel로 변경
-5. qr 코드 스캔
+4. 프로젝트 실행
+5. http://localhost:19002/ 접속 후 CONNECTION를 Tunnel로 변경
+6. qr 코드 스캔
