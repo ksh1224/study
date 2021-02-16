@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "study",
-    "slug": "study",
-    "version": "1.0.0",
+    "name": "페업플레이",
+    "slug": "pay-up-play",
+    "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
