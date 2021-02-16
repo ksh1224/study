@@ -1,7 +1,11 @@
 module.exports = {
-  root: true,
   extends: '@react-native-community',
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
-  rules: {},
+  parserOptions: {
+    project: './tsconfig.json',
+  },
+  rules: {
+    'no-undef': 'off',
+  },
 };
