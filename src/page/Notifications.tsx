@@ -1,10 +1,10 @@
-import { useNavigation } from '@react-navigation/native';
 import Header from 'components/section/Header';
 import React from 'react';
 import { Text, View } from 'react-native';
 import { styles } from 'utils/stylesUtil';
+import { useNavigation } from '@react-navigation/native';
 
-export default function Auction() {
+export default function Notifications() {
   const navigation = useNavigation<RootStackkNavigationProps>();
 
   return (
@@ -14,7 +14,7 @@ export default function Auction() {
           navigation.goBack();
         }}
       />
-      <Text>Auction</Text>
+      <Text>Notification</Text>
     </View>
   );
 }
