@@ -13,23 +13,4 @@ declare global {
     currentPage?: number;
     totalPage?: number;
   };
-
-  type RootStackParamList = {
-    Home: undefined;
-    Auction: undefined;
-    Chat: undefined;
-    CommunityDetail: undefined;
-    Write: undefined;
-  };
-
-  type HomeStackParamList = {
-    Main: undefined;
-    Community: undefined;
-    DealList: undefined;
-    UserInfo: undefined;
-  };
-
-  // type RootState = ReturnType<typeof rootReducer>;
-
-  // type Actions = ActionType<typeof actions>;
 }
