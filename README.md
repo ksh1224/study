@@ -6,6 +6,7 @@
 1. 깃 클론 후 vs코드에서 extensions 다운로드: prettier, eslint
 <br/>
 2. 프로젝트에서 해당 명령어 실행
+
 ```bash
 $ yarn
 ```
