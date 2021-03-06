@@ -11,13 +11,13 @@ import {
   text,
 } from 'utils/stylesUtil';
 
-type Props = {
+interface Props {
   back?: () => void;
   children?: JSX.Element | JSX.Element[];
   rightButton?: JSX.Element;
   tab: string[];
   onChangeTab?: ({ tab, index }: { tab: string; index: number }) => void;
-};
+}
 
 export default function TabHeader({
   back,

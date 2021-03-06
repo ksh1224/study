@@ -5,12 +5,12 @@ declare global {
     [key: string]: any;
   }
 
-  type APIData = {
+  interface APIData {
     responseCode: string;
     message: string;
     data: ObjectType;
     currentIndex?: number;
     currentPage?: number;
     totalPage?: number;
-  };
+  }
 }

@@ -9,11 +9,11 @@ import {
   styles,
 } from 'utils/stylesUtil';
 
-type Props = {
+interface Props {
   back?: () => void;
   children?: JSX.Element | JSX.Element[];
   rightButton?: JSX.Element;
-};
+}
 
 export default function Header({ back, children, rightButton }: Props) {
   return (

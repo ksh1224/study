@@ -4,21 +4,21 @@ import { StackNavigationProp } from '@react-navigation/stack';
 export {};
 
 declare global {
-  type RootStackParamList = {
+  interface RootStackParamList {
     HomeStack: undefined;
     Auction: undefined;
     Chat: undefined;
     CommunityDetail: undefined;
     Write: undefined;
     Notifications: undefined;
-  };
+  }
 
-  type HomeStackParamList = {
+  interface HomeStackParamList {
     Main: undefined;
     Community: undefined;
     DealList: undefined;
     UserInfo: undefined;
-  };
+  }
 
   type RootStackkNavigationProps<
     T extends keyof RootStackParamList = 'HomeStack'
