@@ -22,37 +22,47 @@ export function customStyle<T extends NamedStyles<T> | NamedStyles<any>>(
 }
 
 export const defaultStyle = customStyle({
+  // 해당 영역 채우기
   flex: {
     flex: 1,
   },
+  // 중앙 정렬
   center: {
     alignItems: 'center',
     justifyContent: 'center',
   },
+  // 세로 양끝 정렬
   between: {
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  // 가로 양끝 정렬
   rowBetween: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  // 가로 배치
   row: {
     flexDirection: 'row',
   },
+  // 위치 절대값
   absolute: {
     position: 'absolute',
   },
+  // 위치 상대값
   relative: {
     position: 'relative',
   },
+  // 폭 100%
   w100: {
     width: '100%',
   },
+  // 높이 100%
   h100: {
     height: '100%',
   },
+  // 텍스트 중앙 정렬
   textCenter: {
     textAlign: 'center',
   },
@@ -64,6 +74,7 @@ type StyleParam =
   | TextStyle
   | ImageStyle;
 
+// 중복 스타일 (기본, 커스텀)
 export function styles(params: (StyleParam | undefined)[]): any {
   return params.map((param) => {
     if (!param) {
@@ -79,7 +90,7 @@ export function styles(params: (StyleParam | undefined)[]): any {
     }
   });
 }
-
+// 폭 길이
 export function width(number: number) {
   const { style } = customStyle({
     style: {
@@ -88,7 +99,7 @@ export function width(number: number) {
   });
   return style;
 }
-
+// 높이 길이
 export function height(number: number) {
   const { style } = customStyle({
     style: {
@@ -97,7 +108,7 @@ export function height(number: number) {
   });
   return style;
 }
-
+// 백그라운드 컬러
 export function background(color: string) {
   const { style } = customStyle({
     style: {
@@ -106,7 +117,7 @@ export function background(color: string) {
   });
   return style;
 }
-
+// 폭, 높이 길이
 export function square(width: number, height: number) {
   const { style } = customStyle({
     style: {
@@ -116,7 +127,7 @@ export function square(width: number, height: number) {
   });
   return style;
 }
-
+// 마진
 export function margin(
   props:
     | {
@@ -147,7 +158,7 @@ export function margin(
   }
   return style;
 }
-
+// 패딩
 export function padding(
   props:
     | {
@@ -178,7 +189,7 @@ export function padding(
   }
   return style;
 }
-
+// 위치 지정
 export function movePosition({
   top,
   bottom,
@@ -200,7 +211,7 @@ export function movePosition({
   });
   return style;
 }
-
+// 경계
 export function border({
   width,
   radius,
@@ -219,7 +230,7 @@ export function border({
   });
   return style;
 }
-
+// 텍스트
 export function text(
   props:
     | {
