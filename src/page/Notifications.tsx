@@ -1,13 +1,12 @@
+import Header from 'components/section/Header';
 import React from 'react';
 import { Text, View } from 'react-native';
-import Header from 'components/section/Header';
 import { styles } from 'utils/stylesUtil';
+import { useNavigation } from '@react-navigation/native';
 
-interface Props {
-  navigation: RootStackkNavigationProps;
-}
+export default function Notifications() {
+  const navigation = useNavigation<RootStackkNavigationProps>();
 
-export default function Notifications({ navigation }: Props) {
   return (
     <View style={styles(['flex'])}>
       <Header
