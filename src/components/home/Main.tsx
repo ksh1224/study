@@ -13,7 +13,7 @@ export default function Main() {
         tab={['정보', '경매']}
         onChangeTab={(tab) => console.log('tab', tab)}
         rightButton={
-          <Pressable onPress={() => navigation.push('Notifications')}>
+          <Pressable onPress={() => navigation.push('Write')}>
             <Image
               style={{ tintColor: customColors.main }}
               source={require('assets/images/notifications.png')}
