@@ -1,14 +1,15 @@
 import React from 'react';
-import { Text, ScrollView, Pressable, Image } from 'react-native';
+import { Text, ScrollView, Pressable, Image, View } from 'react-native';
 import TabHeader from 'components/section/TabHeader';
 import { customColors, defaultStyle, text } from 'utils/stylesUtil';
 import { useNavigation } from '@react-navigation/native';
+import SlideView from 'components/elements/SlideView';
 
 export default function Main() {
   const { flex } = defaultStyle;
   const navigation = useNavigation<RootStackkNavigationProps>();
   return (
-    <ScrollView style={[flex]}>
+    <View style={[flex]}>
       <TabHeader
         tab={['정보', '경매']}
         onChangeTab={(tab) => console.log('tab', tab)}
@@ -22,7 +23,14 @@ export default function Main() {
         }>
         <Text style={text(20)}>메인</Text>
       </TabHeader>
-      <Text>Main</Text>
-    </ScrollView>
+      <View style={flex}>
+        <SlideView>
+          <View />
+          <View />
+          <View />
+        </SlideView>
+        <View />
+      </View>
+    </View>
   );
 }
