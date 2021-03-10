@@ -6,6 +6,12 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { defaultStyle } from 'utils/stylesUtil';
 import { useFonts } from 'expo-font';
+import { Provider } from 'react-redux';
+import configureStore from 'store';
+import rootSaga from 'store/sagas';
+
+const store = configureStore();
+store.runSaga(rootSaga);
 
 export default function App() {
   const { flex } = defaultStyle;
@@ -16,7 +22,7 @@ export default function App() {
     Bold: require('assets/fonts/NotoSansKR-Bold.otf'),
   });
   return (
-    <>
+    <Provider store={store}>
       <StatusBar style="auto" />
       <SafeAreaProvider>
         <SafeAreaView style={flex}>
@@ -32,6 +38,6 @@ export default function App() {
           </NavigationContainer>
         </SafeAreaView>
       </SafeAreaProvider>
-    </>
+    </Provider>
   );
 }
