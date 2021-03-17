@@ -11,6 +11,7 @@ export const deviceHeight = Dimensions.get('window').height;
 export const deviceWidth = Dimensions.get('window').width;
 export const customColors = {
   main: 'rgb(133,208,222)',
+  gray: 'rgb(198,198,198)',
 };
 
 type NamedStyles<T> = { [P in keyof T]: ViewStyle | TextStyle | ImageStyle };
@@ -75,35 +76,46 @@ type StyleParam =
   | ImageStyle;
 
 // 중복 스타일 (기본, 커스텀)
-export function styles(params: (StyleParam | undefined)[]): any {
-  return params.map((param) => {
-    if (!param) {
-      return;
-    }
-    if (typeof param === 'string') {
-      return defaultStyle[param];
+export function styles(params: StyleParam | (StyleParam | undefined)[]): any {
+  if (Array.isArray(params)) {
+    return params.map((param) => {
+      if (!param) {
+        return;
+      }
+      if (typeof param === 'string') {
+        return defaultStyle[param];
+      } else {
+        const { style } = customStyle({
+          style: param,
+        });
+        return style;
+      }
+    });
+  } else {
+    if (typeof params === 'string') {
+      return defaultStyle[params];
     } else {
       const { style } = customStyle({
-        style: param,
+        style: params,
       });
       return style;
     }
-  });
+  }
 }
 // 폭 길이
-export function width(number: number) {
+export function width(number: number | string) {
   const { style } = customStyle({
     style: {
-      width: number * REM,
+      width: typeof number === 'string' ? number : number * REM,
     },
   });
   return style;
 }
 // 높이 길이
-export function height(number: number) {
+export function height(number: number | string) {
   const { style } = customStyle({
     style: {
-      height: number * REM,
+      height: typeof number === 'string' ? number : number * REM,
     },
   });
   return style;
@@ -118,11 +130,17 @@ export function background(color: string) {
   return style;
 }
 // 폭, 높이 길이
-export function square(width: number, height: number) {
+export function square(width: number | string, height?: number | string) {
   const { style } = customStyle({
     style: {
-      width: width * REM,
-      height: height * REM,
+      width: typeof width === 'string' ? width : width * REM,
+      height: height
+        ? typeof height === 'string'
+          ? height
+          : height * REM
+        : typeof width === 'string'
+        ? width
+        : width * REM,
     },
   });
   return style;
@@ -137,14 +155,26 @@ export function margin(
         left?: number;
       }
     | number,
+  props2?: number,
 ) {
   let style;
   if (typeof props === 'number') {
-    ({ style } = customStyle({
-      style: {
-        margin: props * REM,
-      },
-    }));
+    if (props2) {
+      ({ style } = customStyle({
+        style: {
+          marginTop: props,
+          marginBottom: props,
+          marginRight: props2,
+          marginLeft: props2,
+        },
+      }));
+    } else {
+      ({ style } = customStyle({
+        style: {
+          margin: props * REM,
+        },
+      }));
+    }
   } else {
     const { top, bottom, right, left } = props;
     ({ style } = customStyle({
@@ -168,14 +198,26 @@ export function padding(
         left?: number;
       }
     | number,
+  props2?: number,
 ) {
   let style: ObjectType;
   if (typeof props === 'number') {
-    ({ style } = customStyle({
-      style: {
-        padding: props * REM,
-      },
-    }));
+    if (props2) {
+      ({ style } = customStyle({
+        style: {
+          paddingTop: props,
+          paddingBottom: props,
+          paddingRight: props2,
+          paddingLeft: props2,
+        },
+      }));
+    } else {
+      ({ style } = customStyle({
+        style: {
+          padding: props * REM,
+        },
+      }));
+    }
   } else {
     const { top, bottom, right, left } = props;
     ({ style } = customStyle({
