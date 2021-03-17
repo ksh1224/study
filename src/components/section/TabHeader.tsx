@@ -17,6 +17,7 @@ interface Props {
   rightButton?: JSX.Element;
   tab: string[];
   onChangeTab?: ({ tab, index }: { tab: string; index: number }) => void;
+  value?: number;
 }
 
 export default function TabHeader({
@@ -25,6 +26,7 @@ export default function TabHeader({
   rightButton,
   tab,
   onChangeTab,
+  value,
 }: Props) {
   const [selectTab, setSelectTab] = useState(0);
 
@@ -37,8 +39,14 @@ export default function TabHeader({
     }
   }, [selectTab]);
 
+  useEffect(() => {
+    if (typeof value === 'number' && value !== selectTab) {
+      setSelectTab(value);
+    }
+  }, [value]);
+
   return (
-    <View style={styles(['w100'])}>
+    <View style={styles('w100')}>
       <View
         style={styles([
           'w100',

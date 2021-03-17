@@ -15,7 +15,7 @@ export default function CustomModal({
 }: Props) {
   return (
     <Modal visible={visible} transparent>
-      <View style={styles(['flex'])}>
+      <View style={styles('flex')}>
         <Pressable
           onPress={close}
           style={styles(['flex', 'center', background('#0005')])}>

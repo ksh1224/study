@@ -8,7 +8,7 @@ export default function Chat() {
   const navigation = useNavigation<RootStackkNavigationProps>();
 
   return (
-    <View style={styles(['flex'])}>
+    <View style={styles('flex')}>
       <Header
         back={() => {
           navigation.goBack();

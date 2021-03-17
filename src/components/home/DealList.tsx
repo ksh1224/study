@@ -3,6 +3,7 @@ import React from 'react';
 import { Image, Pressable, Text, View } from 'react-native';
 import { background, customColors, defaultStyle, text } from 'utils/stylesUtil';
 
+// 거래 데이터
 export default function DealList() {
   const { flex } = defaultStyle;
   return (

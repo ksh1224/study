@@ -3,6 +3,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { background, defaultStyle, text } from 'utils/stylesUtil';
 
+// 유저 정보 데이터
 export default function UserInfo() {
   const { flex } = defaultStyle;
   return (
