@@ -16,14 +16,14 @@ store.runSaga(rootSaga);
 export default function App() {
   const { flex } = defaultStyle;
   useFonts({
-    Regular: require('assets/fonts/NotoSansKR-Regular.otf'),
-    Medium: require('assets/fonts/NotoSansKR-Medium.otf'),
-    Light: require('assets/fonts/NotoSansKR-Light.otf'),
-    Bold: require('assets/fonts/NotoSansKR-Bold.otf'),
+    Regular: require('./assets/fonts/NotoSansKR-Regular.otf'),
+    Medium: require('./assets/fonts/NotoSansKR-Medium.otf'),
+    Light: require('./assets/fonts/NotoSansKR-Light.otf'),
+    Bold: require('./assets/fonts/NotoSansKR-Bold.otf'),
   });
   return (
     <Provider store={store}>
-      <StatusBar style="auto" />
+      <StatusBar style="dark" />
       <SafeAreaProvider>
         <SafeAreaView style={flex}>
           <NavigationContainer
