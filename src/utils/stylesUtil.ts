@@ -11,7 +11,7 @@ export const deviceHeight = Dimensions.get('window').height;
 export const deviceWidth = Dimensions.get('window').width;
 export const customColors = {
   main: 'rgb(133,208,222)',
-  gray: 'rgb(198,198,198)',
+  gray: 'rgb(220, 220, 220)',
 };
 
 type NamedStyles<T> = { [P in keyof T]: ViewStyle | TextStyle | ImageStyle };
