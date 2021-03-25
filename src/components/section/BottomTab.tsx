@@ -1,9 +1,11 @@
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { LinearGradient } from 'expo-linear-gradient';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   ImageSourcePropType,
+  Keyboard,
+  Platform,
   Pressable,
   Text,
   View,
@@ -44,51 +46,72 @@ export default function BottomTab({ navigation, state }: BottomTabBarProps) {
       source: require('assets/images/user.png'),
     },
   ];
-  return (
-    <View style={styles(['w100', height(62)])}>
-      <LinearGradient
-        colors={['rgba(133,208,222,0)', 'rgba(133,208,222,0.2)']}
-        style={styles([
-          'absolute',
-          'w100',
-          height(2),
-          movePosition({ top: -2 }),
-        ])}
-      />
-      <View style={styles(['flex', 'row'])}>
-        {tab.map(({ name, link, source }, index) => {
-          const selected = index === state.index;
-          const selectColor = selected ? customColors.main : 'rgb(148,148,148)';
 
-          return (
-            <Pressable
-              key={name}
-              style={styles([
-                'flex',
-                'between',
-                padding({ top: 7, bottom: 5 }),
-              ])}
-              onPress={() => navigation.navigate(link)}>
-              <View style={styles([height(29), 'center'])}>
-                <Image
-                  style={{
-                    tintColor: selectColor,
-                  }}
-                  source={source}
-                />
-              </View>
-              <Text
-                style={text({
-                  size: 12,
-                  weight: 'Bold',
-                  color: selectColor,
-                })}>
-                {name}
-              </Text>
-            </Pressable>
-          );
-        })}
+  const [hide, setHide] = useState(false);
+
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      const keyboardEventListener = [
+        Keyboard.addListener('keyboardDidShow', () => setHide(true)),
+        Keyboard.addListener('keyboardDidHide', () => setHide(false)),
+      ];
+      return () => {
+        keyboardEventListener.forEach((eventListener) =>
+          eventListener.remove(),
+        );
+      };
+    }
+  }, []);
+  if (!hide) {
+    return (
+      <View style={styles(['w100', height(62)])}>
+        <LinearGradient
+          colors={['rgba(133,208,222,0)', 'rgba(133,208,222,0.2)']}
+          style={styles([
+            'absolute',
+            'w100',
+            height(2),
+            movePosition({ top: -2 }),
+          ])}
+        />
+        <View style={styles(['flex', 'row'])}>
+          {tab.map(({ name, link, source }, index) => {
+            const selected = index === state.index;
+            const selectColor = selected
+              ? customColors.main
+              : 'rgb(148,148,148)';
+
+            return (
+              <Pressable
+                key={name}
+                style={styles([
+                  'flex',
+                  'between',
+                  padding({ top: 7, bottom: 5 }),
+                ])}
+                onPress={() => navigation.navigate(link)}>
+                <View style={styles([height(29), 'center'])}>
+                  <Image
+                    style={{
+                      tintColor: selectColor,
+                    }}
+                    source={source}
+                  />
+                </View>
+                <Text
+                  style={text({
+                    size: 12,
+                    weight: 'Bold',
+                    color: selectColor,
+                  })}>
+                  {name}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </View>
       </View>
-    </View>
-  );
+    );
+  }
+  return <></>;
 }
