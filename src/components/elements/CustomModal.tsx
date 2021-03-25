@@ -14,7 +14,11 @@ export default function CustomModal({
   children,
 }: Props) {
   return (
-    <Modal visible={visible} transparent>
+    <Modal
+      visible={visible}
+      transparent
+      statusBarTranslucent
+      hardwareAccelerated>
       <View style={styles('flex')}>
         <Pressable
           onPress={close}
