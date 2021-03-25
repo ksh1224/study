@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import {
   View,
   TextInput,
@@ -15,7 +15,6 @@ import {
   square,
   styles,
   customColors,
-  movePosition,
 } from 'utils/stylesUtil';
 
 interface Props {
@@ -27,49 +26,72 @@ interface Props {
     radius?: number;
     color?: string;
   };
-  value: string;
+  value?: string;
   placeholder?: string;
   visible?: boolean;
-  onChange?: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
+  onChange?: (text: string) => void;
   rightIcon?: ImageSourcePropType;
+  leftIcon?: ImageSourcePropType;
   style?: StyleProp<TextStyle>;
+  password?: boolean;
 }
 
-export default function Input({
-  width = '100%',
-  height = 43,
-  padding = 10,
-  onChange,
-  border = { color: customColors.gray, width: 1, radius: 10 },
-  value,
-  placeholder,
-  rightIcon,
-  style,
-}: Props) {
-  return (
-    <View style={styles('center')}>
-      <TextInput
-        style={[
+export default forwardRef<TextInput, Props>(
+  (
+    {
+      width = '100%',
+      height = 43,
+      padding = 10,
+      onChange,
+      border = { color: customColors.gray, width: 1, radius: 10 },
+      value,
+      placeholder,
+      rightIcon,
+      leftIcon,
+      style,
+      password,
+    },
+    ref,
+  ) => {
+    return (
+      <View
+        style={styles([
+          'center',
+          'row',
           square(width, height),
           pad(padding),
           bor({ color: customColors.gray, width: 1, radius: 10, ...border }),
           style,
-        ]}
-        onChange={onChange}
-        value={value}
-        placeholder={placeholder}
-      />
-      {rightIcon && (
-        <View
-          style={styles([
-            'absolute',
-            'center',
-            square(20, 20),
-            movePosition({ right: 10 }),
-          ])}>
-          <Image source={rightIcon} />
-        </View>
-      )}
-    </View>
-  );
-}
+        ])}>
+        {leftIcon && (
+          <View
+            style={styles([
+              'center',
+              square(20, 20),
+              pad({ left: 10, right: 20 }),
+            ])}>
+            <Image source={leftIcon} />
+          </View>
+        )}
+        <TextInput
+          ref={ref}
+          style={styles('flex')}
+          onChangeText={onChange}
+          value={value}
+          placeholder={placeholder}
+          secureTextEntry={password}
+        />
+        {rightIcon && (
+          <View
+            style={styles([
+              'center',
+              square(20, 20),
+              pad({ left: 20, right: 10 }),
+            ])}>
+            <Image source={rightIcon} />
+          </View>
+        )}
+      </View>
+    );
+  },
+);
