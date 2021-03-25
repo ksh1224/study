@@ -10,6 +10,7 @@ declare global {
     Chat: undefined;
     CommunityDetail: undefined;
     Write: undefined;
+    SignUp: undefined;
     Notifications: undefined;
   };
 

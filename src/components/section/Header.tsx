@@ -30,6 +30,7 @@ export default function Header({
           'center',
           padding({ left: 20, right: 20 }),
           height(75),
+          { zIndex: 10 },
           !hideLine && {
             borderBottomColor: customColors.main,
             borderBottomWidth: 1 * REM,
