@@ -12,6 +12,7 @@ import {
 import { TextInput } from 'react-native-gesture-handler';
 import { customColors, REM } from 'utils/stylesUtil';
 import { Picker } from '@react-native-picker/picker';
+import Selecter from 'components/elements/Selecter';
 
 const pictureSize = 200;
 
@@ -73,14 +74,13 @@ export default function Write() {
 
       <View style={styles.body}>
         <TextInput style={styles.box} placeholder="상품명" />
-
-        {/*  주소 */}
-
-        <View style={[styles.box, { padding: 0 }]}>
-          <Picker style={styles.flex}>
-            <Picker.Item label="테스트" value="test" />
-            <Picker.Item label="카테고리" value={0} />
-          </Picker>
+        <View style={styles.box}>
+          <Selecter
+            options={[
+              { name: '카테고리' },
+              { name: '테스트', value: '테스트' },
+            ]}
+          />
         </View>
 
         <View style={styles.box}>
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   box: {
     width: '100%',
     height: 43 * REM,
-    borderColor: 'rgb(198,198,198)',
+    borderColor: customColors.gray,
     borderWidth: 1 * REM,
     borderRadius: 11 * REM,
     marginBottom: 20 * REM,

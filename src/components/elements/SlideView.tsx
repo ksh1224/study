@@ -1,18 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, View } from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
-import {
-  background,
-  styles,
-  deviceWidth,
-  REM,
-  defaultStyle,
-} from 'utils/stylesUtil';
+import { styles, deviceWidth, REM, defaultStyle } from 'utils/stylesUtil';
 
 interface Props {
   children: JSX.Element[];
   width?: number;
   page?: number;
+  onChange?: (pageIndex: number) => void;
 }
 
 const { h100, absolute, row } = defaultStyle;
@@ -20,12 +16,19 @@ const { h100, absolute, row } = defaultStyle;
 let specify = 0;
 let time: number;
 
-export default function SlideView({ children, width, page }: Props) {
+export default function SlideView({ children, width, page, onChange }: Props) {
   const vw = width ? width * REM : deviceWidth;
   const totalWidth = vw * children.length;
   const gesture = useRef(new Animated.Value(0)).current;
   const positon = useRef(new Animated.Value(0)).current;
   const [status, setStatus] = useState<'STOP' | 'START' | 'Gesture'>('START');
+
+  const timing = (toValue: number, duration: number) =>
+    Animated.timing(positon, {
+      toValue,
+      duration,
+      useNativeDriver: true,
+    }).start();
 
   gesture.addListener(({ value }) => {
     const currentPosition = specify + value;
@@ -39,60 +42,56 @@ export default function SlideView({ children, width, page }: Props) {
 
   gesture.stopAnimation((value) => {
     const currentPosition = specify + value;
+
     if (currentPosition >= 0) {
-      Animated.timing(positon, {
-        toValue: 0,
-        duration: 100,
-        useNativeDriver: true,
-      }).start();
+      timing(0, 100);
     } else if (currentPosition <= -vw * (children.length - 1)) {
-      console.log('currentPosition', currentPosition);
-      Animated.timing(positon, {
-        toValue: -vw * (children.length - 1),
-        duration: 100,
-        useNativeDriver: true,
-      }).start();
+      timing(-vw * (children.length - 1), 100);
     } else if (status === 'STOP' && currentPosition !== specify) {
       time = new Date().getTime() - time;
       if (time < 150) {
         let toValue = 0;
         if (value > 0) {
-          console.log('back');
           toValue = specify + vw;
         } else {
-          console.log('go');
           toValue = specify - vw;
         }
-        Animated.timing(positon, {
-          toValue,
-          duration: 150,
-          useNativeDriver: true,
-        }).start();
+        timing(toValue, 150);
         specify = toValue;
+        if (specify !== vw * Math.round(currentPosition / vw) && onChange) {
+          onChange(Math.abs(Math.round(specify / vw)));
+        }
       } else {
-        Animated.timing(positon, {
-          toValue: vw * Math.round(currentPosition / vw),
-          duration: 100,
-          useNativeDriver: true,
-        }).start();
+        timing(vw * Math.round(currentPosition / vw), 100);
+        if (specify !== vw * Math.round(currentPosition / vw) && onChange) {
+          onChange(Math.abs(Math.round(currentPosition / vw)));
+        }
         specify = vw * Math.round(currentPosition / vw);
       }
     }
   });
-
-  // positon.addListener(({ value }) => {
-  //   if (value > 0) {
-  //     positon.setValue(0);
-  //     specify = 0;
-  //     move = 0;
-  //   }
-  // });
 
   useEffect(() => {
     if (status === 'START') {
       time = new Date().getTime();
     }
   }, [status]);
+
+  useEffect(() => {
+    if (
+      typeof page === 'number' &&
+      children &&
+      page >= 0 &&
+      page <= children.length - 1
+    ) {
+      Animated.timing(positon, {
+        toValue: -vw * page,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+      specify = -vw * page;
+    }
+  }, [children, page]);
 
   return (
     <PanGestureHandler
@@ -129,13 +128,7 @@ export default function SlideView({ children, width, page }: Props) {
           { width: totalWidth },
         ]}>
         {children.map((jsx, i) => (
-          <View
-            key={i}
-            style={styles([
-              'h100',
-              { width: vw },
-              background(i === 1 ? '#fff' : '#000'),
-            ])}>
+          <View key={i} style={styles(['h100', { width: vw }])}>
             {jsx}
           </View>
         ))}

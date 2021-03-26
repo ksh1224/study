@@ -10,6 +10,7 @@ import Write from 'page/Write';
 import Notifications from 'page/Notifications';
 import HomeStack from './HomeNavigation';
 import { Animated } from 'react-native';
+import SignUp from 'page/SignUp';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -68,6 +69,7 @@ export default function RootNavigation() {
       <Stack.Screen name="Chat" component={Chat} />
       <Stack.Screen name="CommunityDetail" component={CommunityDetail} />
       <Stack.Screen name="Write" component={Write} />
+      <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="Notifications" component={Notifications} />
     </Stack.Navigator>
   );

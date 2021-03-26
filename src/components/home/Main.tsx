@@ -1,10 +1,9 @@
-import React, { createRef, useEffect, useRef, useState } from 'react';
+import React, { createRef, useEffect, useState } from 'react';
 import { Text, Pressable, Image, View } from 'react-native';
 import TabHeader from 'components/section/TabHeader';
 import { customColors, defaultStyle, styles, text } from 'utils/stylesUtil';
 import { useNavigation } from '@react-navigation/native';
 import ViewPager from '@react-native-community/viewpager';
-import Input from 'components/elements/Input';
 
 export default function Main() {
   const { flex } = defaultStyle;

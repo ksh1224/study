@@ -1,7 +1,21 @@
-import Header from 'components/section/Header';
 import React from 'react';
 import { Image, Pressable, Text, View } from 'react-native';
-import { background, customColors, defaultStyle, text } from 'utils/stylesUtil';
+import Input from 'components/elements/Input';
+import DealListItem from 'components/item/DealListItem';
+import Header from 'components/section/Header';
+import { Picker } from '@react-native-picker/picker';
+import { ScrollView } from 'react-native-gesture-handler';
+import {
+  background,
+  customColors,
+  defaultStyle,
+  REM,
+  square,
+  styles,
+  text,
+  width,
+} from 'utils/stylesUtil';
+import Selecter from 'components/elements/Selecter';
 
 // 거래 데이터
 export default function DealList() {
@@ -17,8 +31,37 @@ export default function DealList() {
             />
           </Pressable>
         }>
-        <Text style={text(20)}>거래내역</Text>
+        <View style={[width(200), styles('h100')]}>
+          <Selecter
+            options={[
+              { name: '진행중', value: 'IN_PROGRESS' },
+              { name: '거래 완료', value: 'COMPLETE' },
+            ]}
+          />
+        </View>
       </Header>
+      <View
+        style={styles([
+          square('100%', 68),
+          'row',
+          'center',
+          {
+            borderBottomColor: 'rgb(200,200,200)',
+            borderBottomWidth: 1 * REM,
+            paddingHorizontal: 20 * REM,
+          },
+        ])}>
+        <Input
+          leftIcon={require('assets/images/search.png')}
+          style={background('rgb(244,244,244)')}
+          border={{ color: '#fff0' }}
+          width="100%"
+          value=""
+        />
+      </View>
+      <ScrollView style={styles('flex')}>
+        <DealListItem />
+      </ScrollView>
     </View>
   );
 }
